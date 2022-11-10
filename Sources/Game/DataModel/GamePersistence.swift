@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import Test
 
 public protocol PersistenceManager {
     
@@ -87,5 +88,28 @@ public class GamePersistenceManager: PersistenceManager {
             
             debugPrint("Loaded TEMPORARY STORE successfully")
         })
+    }
+}
+
+public struct GamePersistence: HasIsRunningTests, HasIsCloudAvailable {
+    
+    static var manager: PersistenceManager {
+        let config: PersistenceConfig
+
+        if isRunnignTests {
+            config = .init(modelName: Model.game,
+                           cloudIdentifier: String.empty,
+                           configuration: Path.local)
+        } else if isCloudAvailable {
+            config = .init(modelName: Model.game,
+                           cloudIdentifier: Model.cloud,
+                           configuration: Path.cloud)
+        } else {    // TODO: Right now, not different from test...
+            config = .init(modelName: Model.game,
+                           cloudIdentifier: String.empty,
+                           configuration: Path.local)
+        }
+        
+        return GamePersistenceManager(configuration: config)
     }
 }
