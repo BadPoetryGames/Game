@@ -1,6 +1,6 @@
 //
 //  GamePersistence.swift
-//  Game Package
+//  Model Package
 //
 //  Created by James Lingo on 11/10/22.
 //
@@ -43,8 +43,8 @@ open class PersistentContainer: NSPersistentContainer {
     override open class func defaultDirectoryURL() -> URL {
 
         return super.defaultDirectoryURL()
-            .appendingPathComponent("CoreDataModel")
-            .appendingPathComponent("Local")
+            .appendingPathComponent(Path.model)
+            .appendingPathComponent(Path.local)
     }
 }
 
@@ -54,8 +54,8 @@ open class PersistentCloudKitContainer: NSPersistentCloudKitContainer {
     override open class func defaultDirectoryURL() -> URL {
         
         return super.defaultDirectoryURL()
-            .appendingPathComponent("CoreDataModel")
-            .appendingPathComponent("Cloud")
+            .appendingPathComponent(Path.model)
+            .appendingPathComponent(Path.cloud)
     }
 }
 
