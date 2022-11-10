@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Action" representedClassName="Action" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <attribute name="begin" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="finish" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isPlayer" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="history" inverseEntity="Character"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="history" inverseEntity="Game"/>
+    </entity>
+    <entity name="Character" representedClassName="Character" syncable="YES" codeGenerationType="class">
+        <attribute name="isNPC" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="portrait" optional="YES" attributeType="Binary"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="character" inverseEntity="Value"/>
+        <relationship name="history" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Action" inverseName="characters" inverseEntity="Action"/>
+        <relationship name="pieces" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Piece" inverseName="owner" inverseEntity="Piece"/>
+    </entity>
+    <entity name="DiceRoll" representedClassName="DiceRoll" parentEntity="Action" syncable="YES" codeGenerationType="class">
+        <attribute name="isChallenge" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="rolls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="dice" inverseEntity="Value"/>
+        <relationship name="targets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="target" inverseEntity="Value"/>
+    </entity>
+    <entity name="Game" representedClassName="Game" syncable="YES" codeGenerationType="class">
+        <attribute name="begin" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="finish" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="board" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Space" inverseName="game" inverseEntity="Space"/>
+        <relationship name="history" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Action" inverseName="game" inverseEntity="Action"/>
+        <relationship name="scene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Scenario" inverseName="game" inverseEntity="Scenario"/>
+    </entity>
+    <entity name="Move" representedClassName="Move" parentEntity="Action" syncable="YES" codeGenerationType="class">
+        <relationship name="endSpace" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Space" inverseName="destinations" inverseEntity="Space"/>
+        <relationship name="firstSpace" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Space" inverseName="origins" inverseEntity="Space"/>
+        <relationship name="pieces" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Piece" inverseName="moves" inverseEntity="Piece"/>
+    </entity>
+    <entity name="Piece" representedClassName="Piece" syncable="YES" codeGenerationType="class">
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Space" inverseName="pieces" inverseEntity="Space"/>
+        <relationship name="moves" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Move" inverseName="pieces" inverseEntity="Move"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="pieces" inverseEntity="Character"/>
+    </entity>
+    <entity name="Scenario" representedClassName="Scenario" syncable="YES" codeGenerationType="class">
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="scene" inverseEntity="Game"/>
+    </entity>
+    <entity name="Space" representedClassName="Space" syncable="YES" codeGenerationType="class">
+        <attribute name="isSafe" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="destinations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Move" inverseName="endSpace" inverseEntity="Move"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="board" inverseEntity="Game"/>
+        <relationship name="lastSpace" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Space" inverseName="nextSpace" inverseEntity="Space"/>
+        <relationship name="nextSpace" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Space" inverseName="lastSpace" inverseEntity="Space"/>
+        <relationship name="origins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Move" inverseName="firstSpace" inverseEntity="Move"/>
+        <relationship name="pieces" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Piece" inverseName="location" inverseEntity="Piece"/>
+    </entity>
+    <entity name="Value" representedClassName="Value" syncable="YES" codeGenerationType="class">
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="attributes" inverseEntity="Character"/>
+        <relationship name="dice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DiceRoll" inverseName="rolls" inverseEntity="DiceRoll"/>
+        <relationship name="target" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DiceRoll" inverseName="targets" inverseEntity="DiceRoll"/>
+    </entity>
+</model>
