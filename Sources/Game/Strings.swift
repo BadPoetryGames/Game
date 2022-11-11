@@ -8,8 +8,9 @@
 import Foundation
 
 struct Model {
-    static let game = "Game"
+    static let game  = "Game"
     static let cloud = "iCloud.com.badpoetrygame.game.shared"
+    static let ext   = "momd"
 }
 
 // TODO: Move to DataModel Package?

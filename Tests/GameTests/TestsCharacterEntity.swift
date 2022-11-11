@@ -6,10 +6,10 @@
 //
 
 import XCTest
-import Tests
+import TestTools
 @testable import Game
 
-final class TestsCharacterEntity: BaseTest {  // TODO: Sub-class BaseTest
+final class TestsCharacterEntity: BaseTest {
 
     // MARK: - Properties
 
@@ -22,7 +22,8 @@ final class TestsCharacterEntity: BaseTest {  // TODO: Sub-class BaseTest
     // MARK: - Functions: XCTestCase
     
     override func setUp() {
-        subject = MockCharacterEntity(name: "Test Name")
+//        subject = MockCharacterEntity(name: "Test Name")
+        subject = CharacterEntity()
     }
     
     override func tearDown() {
@@ -86,7 +87,6 @@ final class TestsCharacterEntity: BaseTest {  // TODO: Sub-class BaseTest
 
     func testCharacterEntityHasHistoryCollection() {
         XCTFail()   // TODO: Requires ActionEntity to be defined.
-        
     }
 
     func testCharacterEntityHasOptionalPiecesCollection() {
@@ -98,10 +98,10 @@ final class TestsCharacterEntity: BaseTest {  // TODO: Sub-class BaseTest
     }
 }
 
-struct MockCharacterEntity: CharacterEntity {
-    var rawState: Int?
-    var portrait: Data?
-    var isNPC: Bool = false
-    var name: String
-}
+//struct MockCharacterEntity: CharacterEntity {
+//    var rawState: Int?
+//    var portrait: Data?
+//    var isNPC: Bool = false
+//    var name: String
+//}
 
