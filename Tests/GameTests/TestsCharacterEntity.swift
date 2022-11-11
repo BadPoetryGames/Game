@@ -9,7 +9,7 @@ import XCTest
 import Tests
 @testable import Game
 
-final class TestsCharacterEntity: XCTestCase {  // TODO: Sub-class BaseTest
+final class TestsCharacterEntity: BaseTest {  // TODO: Sub-class BaseTest
 
     // MARK: - Properties
 
@@ -86,6 +86,7 @@ final class TestsCharacterEntity: XCTestCase {  // TODO: Sub-class BaseTest
 
     func testCharacterEntityHasHistoryCollection() {
         XCTFail()   // TODO: Requires ActionEntity to be defined.
+        
     }
 
     func testCharacterEntityHasOptionalPiecesCollection() {
