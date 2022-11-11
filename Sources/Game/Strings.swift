@@ -12,7 +12,7 @@ struct Model {
     static let cloud = "iCloud.com.badpoetrygame.game.shared"
 }
 
-// TODO: Move to DataModel Package
+// TODO: Move to DataModel Package?
 struct Path {
     static let model = "CoreDataModel"
     static let local = "Local"

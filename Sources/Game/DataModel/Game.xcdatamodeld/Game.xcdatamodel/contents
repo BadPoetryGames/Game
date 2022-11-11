@@ -9,13 +9,16 @@
         <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="history" inverseEntity="Game"/>
     </entity>
     <entity name="Character" representedClassName="Character" syncable="YES" codeGenerationType="class">
-        <attribute name="isNPC" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="isNPC" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString="Default Name"/>
         <attribute name="portrait" optional="YES" attributeType="Binary"/>
         <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="character" inverseEntity="Value"/>
         <relationship name="history" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Action" inverseName="characters" inverseEntity="Action"/>
         <relationship name="pieces" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Piece" inverseName="owner" inverseEntity="Piece"/>
+        <relationship name="stats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="character" inverseEntity="Value"/>
+    </entity>
+    <entity name="Currency" representedClassName="Currency" syncable="YES" codeGenerationType="class">
+        <relationship name="bpgCoin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Value" inverseName="currency" inverseEntity="Value"/>
     </entity>
     <entity name="DiceRoll" representedClassName="DiceRoll" parentEntity="Action" syncable="YES" codeGenerationType="class">
         <attribute name="isChallenge" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -29,6 +32,7 @@
         <relationship name="board" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Space" inverseName="game" inverseEntity="Space"/>
         <relationship name="history" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Action" inverseName="game" inverseEntity="Action"/>
         <relationship name="scene" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Scenario" inverseName="game" inverseEntity="Scenario"/>
+        <relationship name="score" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Value" inverseName="game" inverseEntity="Value"/>
     </entity>
     <entity name="Move" representedClassName="Move" parentEntity="Action" syncable="YES" codeGenerationType="class">
         <relationship name="endSpace" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Space" inverseName="destinations" inverseEntity="Space"/>
@@ -58,8 +62,10 @@
         <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="value" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="attributes" inverseEntity="Character"/>
+        <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="stats" inverseEntity="Character"/>
+        <relationship name="currency" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Currency" inverseName="bpgCoin" inverseEntity="Currency"/>
         <relationship name="dice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DiceRoll" inverseName="rolls" inverseEntity="DiceRoll"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="score" inverseEntity="Game"/>
         <relationship name="target" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DiceRoll" inverseName="targets" inverseEntity="DiceRoll"/>
     </entity>
 </model>
