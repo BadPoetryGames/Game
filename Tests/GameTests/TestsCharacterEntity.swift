@@ -23,7 +23,7 @@ final class TestsCharacterEntity: BaseTest {
     
     override func setUp() {
 //        subject = MockCharacterEntity(name: "Test Name")
-        subject = CharacterEntity()
+//        subject = CharacterEntity()
     }
     
     override func tearDown() {

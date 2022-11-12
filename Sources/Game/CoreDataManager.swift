@@ -38,10 +38,10 @@ class ModelManager: ObservableObject {
     
     let coreData: CoreDataManager
     
-    @Published private(set) var characters: [CharacterEntity]
+//    @Published private(set) var characters: [CharacterEntity]
     
     convenience init() throws {
-        try self.init(coreDataManager: CoreDataManager())
+        try self.init(manager: CoreDataManager())
     }
     
     init(manager: CoreDataManager) throws {
